@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>30 Reasons I Love You</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #d63384, #ff4da6); /* dark pink gradient */
+      text-align: center;
+      padding: 30px;
+      overflow-x: hidden;
+      color: white;
+    }
+    h1 {
+      color: #fff;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .day {
+      background: rgba(255, 255, 255, 0.15);
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 12px;
+      padding: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #fff;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
+      backdrop-filter: blur(6px);
+    }
+    .day:hover {
+      transform: scale(1.05);
+      background: rgba(255,255,255,0.3);
+    }
+
+    /* Modal background */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.6);
+      animation: fadeIn 0.3s;
+    }
+
+    /* Modal content */
+    .modal-content {
+      background: #fff0f6;
+      margin: 15% auto;
+      padding: 25px;
+      border-radius: 20px;
+      width: 80%;
+      max-width: 400px;
+      text-align: center;
+      animation: popIn 0.4s ease;
+      color: #d63384;
+      font-size: 18px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .close {
+      float: right;
+      font-size: 24px;
+      cursor: pointer;
+      color: #999;
+    }
+    .close:hover {
+      color: #d63384;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    /* Heart animation */
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #ff4da6;
+      transform: rotate(-45deg);
+      animation: floatUp 1.5s ease forwards;
+    }
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #ff4da6;
+      border-radius: 50%;
+    }
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+    .heart::after {
+      left: 10px;
+      top: 0;
+    }
+    @keyframes floatUp {
+      0% { transform: translate(0,0) rotate(-45deg); opacity: 1; }
+      100% { transform: translate(calc(-50px + 100px * var(--rand)), -150px) rotate(-45deg); opacity: 0; }
+    }
+
+    /* Special final message style */
+    .final-message {
+      font-size: 20px;
+      font-weight: bold;
+      color: #b30059;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Reasons I Love You</h1>
+  
+  <div class="grid" id="grid"></div>
+
+  <!-- Modal -->
+  <div id="myModal" class="modal">
+    <div class="modal-content" id="modalContent">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <p id="noteText"></p>
+      <p id="finalMessage" class="final-message"></p>
+    </div>
+  </div>
+
+  <script>
+    const reasons = [
+      "U believe in me",
+      "I love ur small efforts",
+      "I love ur style",
+      "You give the best hugs",
+      "Your kindness inspires me",
+      "You make life an adventure",
+      "You understand me without words",
+      "You're my safe place",
+      "I love your silly side",
+      "You’re my biggest support",
+      "You care well",
+      "I love our late-night talks",
+      "You make the little things special",
+      "I love your voice",
+      "You always support my dreams",
+      "You’re so thoughtful",
+      "You make me proud",
+      "I love our hangouts",
+      "You make my heart race",
+      "You’re the best hugger lol",
+      "You’re always honest",
+      "You make me want to be better",
+      "You’re my favorite person",
+      "I love our memories together",
+      "You surprise me in the best ways",
+      "You love me unconditionally",
+      "You make me feel lucky",
+      "I love dreaming about our future",
+      "You’re my forever",
+      "I just love YOU"
+    ];
+
+    // Generate 30 buttons
+    const grid = document.getElementById("grid");
+    for (let i = 1; i <= 30; i++) {
+      const btn = document.createElement("div");
+      btn.className = "day";
+      btn.innerText = "Reason " + i;
+      btn.onclick = () => showNote(i);
+      grid.appendChild(btn);
+    }
+
+    function showNote(day) {
+      const noteText = document.getElementById("noteText");
+      const finalMessage = document.getElementById("finalMessage");
+      if (day === 30) {
+        noteText.innerText = "Reason #" + day + ": " + reasons[day - 1];
+        finalMessage.innerText = "And it never ends… there are way more reasons I love you ❤️";
+      } else {
+        noteText.innerText = "Reason #" + day + ": " + reasons[day - 1];
+        finalMessage.innerText = "";
+      }
+
+      const modal = document.getElementById("myModal");
+      modal.style.display = "block";
+
+      // Create hearts animation
+      const modalContent = document.getElementById("modalContent");
+      for (let i = 0; i < 10; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.style.left = Math.random() * 80 + "%";
+        heart.style.setProperty('--rand', Math.random());
+        modalContent.appendChild(heart);
+        setTimeout(() => heart.remove(), 1500);
+      }
+    }
+
+    function closeModal() {
+      document.getElementById("myModal").style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      if (event.target == document.getElementById("myModal")) {
+        closeModal();
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Anniversary ML ❤️</title>
+  <style>
+    body {
+      font-family: "Georgia", serif;
+      background: linear-gradient(to bottom right, #ffe6eb, #fff5f7);
+      text-align: center;
+      color: #5a2d2d;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    h1 {
+      font-size: 3em;
+      margin-top: 50px;
+      color: #d6336c;
+    }
+    p {
+      font-size: 1.2em;
+      margin: 20px auto;
+      width: 80%;
+      max-width: 600px;
+      line-height: 1.6;
+    }
+    .timeline, .texts, .surprise {
+      margin: 40px auto;
+      width: 80%;
+      max-width: 700px;
+      border-radius: 20px;
+      padding: 30px;
+    }
+    .timeline {
+      background: #fffafa;
+    }
+    .timeline h2 { color: #c2185b; }
+    .event {
+      margin: 20px 0;
+      padding: 15px;
+      background: #ffe4ec;
+      border-left: 5px solid #d6336c;
+      border-radius: 10px;
+      text-align: left;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .event:hover { background: #ffd6e5; }
+    .event img {
+      display: none;
+      margin-top: 15px;
+      width: 100%;
+      max-width: 300px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .texts {
+      background: #fff0f5;
+    }
+    .texts h2 { color: #b03060; }
+    .bubble {
+      background: #ffd9e8;
+      border-radius: 20px;
+      padding: 10px 20px;
+      margin: 10px auto;
+      display: inline-block;
+      text-align: left;
+      font-size: 1em;
+    }
+    .surprise {
+      background: #ffe4ec;
+      position: relative;
+      overflow: hidden;
+    }
+    .surprise h2 {
+      color: #d6336c;
+      font-size: 2em;
+    }
+    .heart {
+      position: absolute;
+      color: #ff4d6d;
+      font-size: 24px;
+      animation: float 5s linear infinite;
+    }
+    @keyframes float {
+      from { transform: translateY(0) scale(1); opacity: 1; }
+      to { transform: translateY(-600px) scale(1.5); opacity: 0; }
+    }
+    footer {
+      margin: 50px;
+      font-style: italic;
+    }
+    /* Music button */
+    #music-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #d6336c;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 1em;
+    }
+    #music-btn:hover {
+      background: #a51c4d;
+    }
+      .text-img {
+      display: block;
+      margin: 10px auto;
+      width: 100%;
+      max-width: 500px;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+  <h1>Happy Anniversary ML ❤️❤️</h1>
+  <p>
+    Happy anniversary my loveee!! Omg I can’t BELIEVE it’s been a year already with u!!  
+    Time went so fast istg. Thank you for being in my life… ur an amazing person and an even better bf.  
+    I love u so much and hope we can celebrate many anniversaries together ❤️❤️😘  
+    I love u so much Harish 😘
+  </p>
+
+  <div class="timeline">
+    <h2>Our Journey Together 💞</h2>
+
+    <div class="event" onclick="togglePic(this)">
+      📸 Our first pic
+      <img src="firstpic.jpeg" alt="Our first pic">
+    </div>
+
+    <div class="event" onclick="togglePic(this)">
+      💖 Our first official pic
+      <img src="officialpic.jpeg" alt="Our first official pic">
+    </div>
+
+    <div class="event" onclick="togglePic(this)">
+      🤝 Us holding hands
+      <img src="holdinghands.jpeg" alt="Holding hands">
+    </div>
+
+    <div class="event" onclick="togglePic(this)">
+      ☕ First hangout
+      <img src="hangout.jpeg" alt="First hangout">
+    </div>
+
+    <div class="event" onclick="togglePic(this)">
+      🤗 Hug pic
+      <img src="hug.jpeg" alt="Hug pic">
+    </div>
+
+    <div class="event" onclick="togglePic(this)">
+      📞 Our first call
+      <img src="firstcall.jpeg" alt="First call">
+    </div>
+  </div>
+
+  <div class="texts">
+    <h2>Sweet Texts from You 💌</h2>
+  
+    <!-- Try .jpeg first; if missing, fall back to .jpg -->
+    <img src="text1.jpeg"
+         onerror="this.onerror=null; this.src='text1.jpg';"
+         alt="Sweet text 1" class="text-img"><br>
+  
+    <img src="text2.jpeg"
+         onerror="this.onerror=null; this.src='text2.jpg';"
+         alt="Sweet text 2" class="text-img"><br>
+  
+    <img src="text3.jpeg"
+         onerror="this.onerror=null; this.src='text3.jpg';"
+         alt="Sweet text 3" class="text-img">
+  </div>
+  
+
+  <div class="surprise">
+    <h2>I Love You Forever ❤️</h2>
+    <div id="hearts"></div>
+  </div>
+
+  <button id="music-btn">Pause Music 🎵</button>
+
+  <footer>
+    Forever yours 💖
+  </footer>
+
+  <!-- Music -->
+  <audio id="bg-music" autoplay loop>
+    <source src="perfect.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    function togglePic(eventDiv) {
+      const img = eventDiv.querySelector("img");
+      img.style.display = img.style.display === "block" ? "none" : "block";
+    }
+
+    // Floating hearts animation
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "❤️";
+      heart.style.left = Math.random() * 100 + "%";
+      heart.style.bottom = "-20px";
+      heart.style.fontSize = Math.random() * 20 + 20 + "px";
+      heart.style.animationDuration = Math.random() * 3 + 3 + "s";
+      document.getElementById("hearts").appendChild(heart);
+
+      setTimeout(() => heart.remove(), 5000);
+    }
+    setInterval(createHeart, 500);
+
+    // Music play/pause toggle
+    const music = document.getElementById("bg-music");
+    const btn = document.getElementById("music-btn");
+    btn.addEventListener("click", () => {
+      if (music.paused) {
+        music.play();
+        btn.textContent = "Pause Music 🎵";
+      } else {
+        music.pause();
+        btn.textContent = "Play Music 🎶";
+      }
+    });
+  </script>
+</body>
+</html>
