@@ -224,18 +224,17 @@
     btn.addEventListener("click", async () => {
       if (music.paused) {
         try {
-          await music.play();      // user gesture -> allowed on all modern browsers
+          await music.play();      
         } catch (e) {
-          // If playback fails, keep the label as "Play Music"
+
         }
       } else {
-        music.pause();             // "Stop" semantics: pause + rewind
+        music.pause();         
         music.currentTime = 0;
       }
       updateBtn();
     });
 
-    // Keep label in sync if user uses system media controls
     music.addEventListener("play", updateBtn);
     music.addEventListener("pause", updateBtn);
   </script>
