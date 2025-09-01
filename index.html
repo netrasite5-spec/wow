@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Happy Anniversary ML ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     body {
       font-family: "Georgia", serif;
@@ -32,9 +33,7 @@
       border-radius: 20px;
       padding: 30px;
     }
-    .timeline {
-      background: #fffafa;
-    }
+    .timeline { background: #fffafa; }
     .timeline h2 { color: #c2185b; }
     .event {
       margin: 20px 0;
@@ -55,9 +54,7 @@
       border-radius: 10px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
-    .texts {
-      background: #fff0f5;
-    }
+    .texts { background: #fff0f5; }
     .texts h2 { color: #b03060; }
     .bubble {
       background: #ffd9e8;
@@ -87,6 +84,9 @@
       from { transform: translateY(0) scale(1); opacity: 1; }
       to { transform: translateY(-600px) scale(1.5); opacity: 0; }
     }
+    @media (prefers-reduced-motion: reduce) {
+      .heart { animation: none; }
+    }
     footer {
       margin: 50px;
       font-style: italic;
@@ -102,10 +102,9 @@
       cursor: pointer;
       font-size: 1em;
     }
-    #music-btn:hover {
-      background: #a51c4d;
-    }
-      .text-img {
+    #music-btn:hover { background: #a51c4d; }
+
+    .text-img {
       display: block;
       margin: 10px auto;
       width: 100%;
@@ -160,39 +159,40 @@
 
   <div class="texts">
     <h2>Sweet Texts from You 💌</h2>
-  
+
     <!-- Try .jpeg first; if missing, fall back to .jpg -->
     <img src="text1.jpeg"
          onerror="this.onerror=null; this.src='text1.jpg';"
          alt="Sweet text 1" class="text-img"><br>
-  
+
     <img src="text2.jpeg"
          onerror="this.onerror=null; this.src='text2.jpg';"
          alt="Sweet text 2" class="text-img"><br>
-  
+
     <img src="text3.jpeg"
          onerror="this.onerror=null; this.src='text3.jpg';"
          alt="Sweet text 3" class="text-img">
   </div>
-  
 
   <div class="surprise">
     <h2>I Love You Forever ❤️</h2>
     <div id="hearts"></div>
   </div>
 
-  <button id="music-btn">Pause Music 🎵</button>
+  <!-- Music control button (starts as Play) -->
+  <button id="music-btn">Play Music</button>
 
   <footer>
     Forever yours 💖
   </footer>
 
-  <!-- Music -->
-  <audio id="bg-music" autoplay loop>
+  <!-- Music (no autoplay; will play on user click) -->
+  <audio id="bg-music" loop preload="auto" playsinline>
     <source src="perfect.mp3" type="audio/mpeg">
   </audio>
 
   <script>
+    // Show/hide timeline pics
     function togglePic(eventDiv) {
       const img = eventDiv.querySelector("img");
       img.style.display = img.style.display === "block" ? "none" : "block";
@@ -208,23 +208,36 @@
       heart.style.fontSize = Math.random() * 20 + 20 + "px";
       heart.style.animationDuration = Math.random() * 3 + 3 + "s";
       document.getElementById("hearts").appendChild(heart);
-
       setTimeout(() => heart.remove(), 5000);
     }
     setInterval(createHeart, 500);
 
-    // Music play/pause toggle
+    // Music play/stop logic
     const music = document.getElementById("bg-music");
     const btn = document.getElementById("music-btn");
-    btn.addEventListener("click", () => {
+
+    function updateBtn() {
+      btn.textContent = music.paused ? "Play Music" : "Stop Music";
+    }
+    updateBtn();
+
+    btn.addEventListener("click", async () => {
       if (music.paused) {
-        music.play();
-        btn.textContent = "Pause Music 🎵";
+        try {
+          await music.play();      // user gesture -> allowed on all modern browsers
+        } catch (e) {
+          // If playback fails, keep the label as "Play Music"
+        }
       } else {
-        music.pause();
-        btn.textContent = "Play Music 🎶";
+        music.pause();             // "Stop" semantics: pause + rewind
+        music.currentTime = 0;
       }
+      updateBtn();
     });
+
+    // Keep label in sync if user uses system media controls
+    music.addEventListener("play", updateBtn);
+    music.addEventListener("pause", updateBtn);
   </script>
 </body>
 </html>
